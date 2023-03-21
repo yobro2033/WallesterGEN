@@ -1,0 +1,8 @@
+{
+    "apiKey": "YOUR_API_KEY",
+    "publicKey": "Use web inspector and check requests when you read the card, public key should show there.",
+    "accountId": "5621dc8d-3de1-4293-b1df-97154e55813a for example",
+    "phone": "+447777777777",
+    "password": "ABCdef123!@#",
+    "firstName": "John"
+}
