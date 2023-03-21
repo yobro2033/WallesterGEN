@@ -43,12 +43,11 @@ def get_card(card_id):
             print(e)
             pass
 
-    label = b"CardNumber"
     base64_message = bytes(base64.b64decode(bytes(encrypted, encoding='iso-8859-1')).decode('iso-8859-1'), encoding='iso-8859-1')
 
     private_key = RSAPrivateKey.from_pem(private_key)
 
-    decrypted = str(rsa_decrypt(private_key, label, base64_message)).replace("b'", "").replace("'", "")
+    decrypted = rsa_decrypt(private_key, b"CardNumber", base64_message).decode()
     return decrypted
 
 def get_cvv(card_id):
@@ -71,12 +70,11 @@ def get_cvv(card_id):
             print(e)
             pass
 
-    label = b"CVV2"
     base64_message = bytes(base64.b64decode(bytes(encrypted, encoding='iso-8859-1')).decode('iso-8859-1'), encoding='iso-8859-1')
 
     private_key = RSAPrivateKey.from_pem(private_key)
 
-    decrypted = str(rsa_decrypt(private_key, label, base64_message)).replace("b'", "").replace("'", "")
+    decrypted = rsa_decrypt(private_key, b"CVV2", base64_message).decode()
     return decrypted
 
 def get_all_cards(numberOfCards):
@@ -114,7 +112,7 @@ def create_card():
                     "password": config["password"],
                     "type": "SMSOTPAndStaticPassword"
                 }
-                }
+            }
 
             data = requests.post(url, headers=headers, json=payload).json()
             card_id = data["card"]["id"]
