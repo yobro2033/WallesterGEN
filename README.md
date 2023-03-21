@@ -1,4 +1,4 @@
-# Wallester Card Gen **Last Review**
+# Wallester Card Gen
 **Last Review 02/02/2023** </br> 
 An un-official API to generate cards on [Wallester](https://wallester.com/)
 # Dependencies
