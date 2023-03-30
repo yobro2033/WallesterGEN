@@ -113,7 +113,6 @@ def create_card():
                     "type": "SMSOTPAndStaticPassword"
                 }
             }
-
             data = requests.post(url, headers=headers, json=payload).json()
             card_id = data["card"]["id"]
             cardExpiry = data["card"]["expiry_date"]
