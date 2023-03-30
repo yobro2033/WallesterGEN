@@ -10,12 +10,12 @@ with open("config.json", "r") as f:
 
 # Load private_key
 with open("example_private", "rb") as key_file:
-    private_key = serialization.load_pem_private_key(key_file.read(), password=None)
+    private_key_global = serialization.load_pem_private_key(key_file.read(), password=None)
 
 def generateJWT():
     apiKey = config["apiKey"]
     payload = {"api_key": apiKey, "ts": int(time.time())}
-    key = private_key.private_bytes(serialization.Encoding.PEM,
+    key = private_key_global.private_bytes(serialization.Encoding.PEM,
                                     serialization.PrivateFormat.PKCS8,
                                     serialization.NoEncryption())
     
@@ -45,7 +45,7 @@ def get_card(card_id):
 
     base64_message = bytes(base64.b64decode(bytes(encrypted, encoding='iso-8859-1')).decode('iso-8859-1'), encoding='iso-8859-1')
 
-    private_key = RSAPrivateKey.from_pem(private_key)
+    private_key = RSAPrivateKey.from_pem(private_key_global)
 
     decrypted = rsa_decrypt(private_key, b"CardNumber", base64_message).decode()
     return decrypted
@@ -72,7 +72,7 @@ def get_cvv(card_id):
 
     base64_message = bytes(base64.b64decode(bytes(encrypted, encoding='iso-8859-1')).decode('iso-8859-1'), encoding='iso-8859-1')
 
-    private_key = RSAPrivateKey.from_pem(private_key)
+    private_key = RSAPrivateKey.from_pem(private_key_global)
 
     decrypted = rsa_decrypt(private_key, b"CVV2", base64_message).decode()
     return decrypted
